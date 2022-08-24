@@ -1,18 +1,28 @@
 import React, { useEffect } from 'react'
-import { useGetTodosQuery } from '../api/apiSlice';
+import { useGetTodosQuery, useAddTodoMutation, useUpdateTodoMutation, useDeleteTodoMutation } from '../api/apiSlice';
 
 function TodoList() {
     const {
         // renaming data as todos
         data: todos,
-        isError,
         isLoading,
         isSuccess,
+        isError,
         error,
     } = useGetTodosQuery();
     console.log(todos, 'todos')
     return (
-        <div>TodoList</div>
+        <div>{
+            todos.map(todo => {
+                return (
+                    <div key={todo.id}>
+                        <li>{todo.title}</li>
+                        <button>Delete</button>
+                        <button>Edit</button>
+                    </div>
+                )
+            })
+        }</div>
     )
 }
 

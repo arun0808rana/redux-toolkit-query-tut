@@ -13,7 +13,9 @@ Paste the following mock data in the `data/db.json` file
 
 ```json
 {
-  "data": [
+  // make sure this key here is the endpoint in your apiSlice, /todos
+  // or else it will throw 404 error
+  "todos": [
     {
       "id": 1,
       "title": "delectus aut autem",
