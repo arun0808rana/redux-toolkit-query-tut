@@ -2,3 +2,19 @@
   /* text-align: center; */
   margin: 1rem;
 }
+
+.todo-container{
+  display: flex;
+}
+
+.todo-container li {
+  margin: 0.5rem 1rem;
+}
+
+button{
+  margin: 0.5rem;
+}
+
+.flex{
+  display: flex;
+}
