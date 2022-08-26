@@ -15,12 +15,34 @@ function TodoList() {
         error,
     } = useGetTodosQuery();
     const [addTodo] = useAddTodoMutation();
-
+    const [updateTodo] = useUpdateTodoMutation();
+    const [deleteTodo] = useDeleteTodoMutation();
     // add todo
     const handleAddTodo = () => {
         addTodo({
             "id": uuidv4(),
             "title": newTodo,
+            "completed": false
+        })
+        setNewTodo({})
+    }
+
+    // update todo
+    const handleUpdateTodo = () => {
+        updateTodo({
+            "id": uuidv4(),
+            "title": newTodo,
+            "completed": false
+        })
+        setNewTodo({})
+    }
+
+    // delete todo
+    const handleDeletTodo = (e) => {
+        deleteTodo({
+            "id": e.target.id,
+            "title": e.target.getAttribute("data-title"),
+            // todo: complete this
             "completed": false
         })
         setNewTodo({})

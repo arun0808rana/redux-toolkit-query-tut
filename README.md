@@ -7,7 +7,9 @@ npm install json-server -g
 ```
 
 ### Mock Data
+
 Paste the following mock data in the `data/db.json` file
+
 <details>
   <summary>Mock Data</summary>
 
@@ -72,8 +74,37 @@ Paste the following mock data in the `data/db.json` file
 
 </details>
 
-### Start the mock server
+### Concurrently running db server and react-server
+
+- You will need two different terminal tabs to run this project.
+- First tab will run the json-server watching command
+- Second tab will run the frontend server of react
+- However concurrently can solve this in just 1 single command and 1 tab.
+
+> Below is the command to run json-server watching your data/db.json file and serving on port 8081. However you `don't need to run it`. Instead concurrently will take care of it.
 
 ```bash
 json-server --watch data/db.json --port 8081
+```
+
+### Install concurrently
+
+```bash
+npm install concurrently --save-dev
+```
+
+### Edit `package.json`
+
+Add these in package.json file...
+
+```json
+"reactStart": "react-scripts start",
+// --kill-others swtich kills other commands below if any one get terminated
+"start": "concurrently --kill-others \"json-server --watch data/db.json --port 8081\" \"npm run reactStart\"",
+```
+
+### Start the concurrent command
+
+```bash
+npm start
 ```
