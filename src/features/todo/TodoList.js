@@ -4,6 +4,7 @@ import { useGetTodosQuery, useAddTodoMutation, useUpdateTodoMutation, useDeleteT
 function TodoList() {
     // local states
     const [newTodo, setNewTodo] = useState({});
+    const [isEditing, setIsEditing] = useState(false);
 
     // hooks
     const {
@@ -39,13 +40,13 @@ function TodoList() {
 
     // delete todo
     const handleDeletTodo = (e) => {
-        deleteTodo({
-            "id": e.target.id,
-            "title": e.target.getAttribute("data-title"),
-            // todo: complete this
-            "completed": false
-        })
-        setNewTodo({})
+        console.log("id", e.target.getAttribute("data-id"))
+        deleteTodo(e.target.getAttribute("data-id"))
+        setNewTodo({});
+    }
+
+    const handleEditing = (e) => {
+        setIsEditing(!isEditing);
     }
 
     // utility functions
@@ -65,8 +66,12 @@ function TodoList() {
                 todos.map(todo => {
                     return (
                         <div key={todo.id} className='todo-container'>
-                            <li>{todo.title}</li>
-                            <button>Delete</button>
+                            <div>
+                                <li>{todo.title}</li>
+                                {/* todo: complete this */}
+                                <input type="text" onChange={handleEditing} />
+                            </div>
+                            <button data-id={todo.id} onClick={handleDeletTodo}>Delete</button>
                             <button>Edit</button>
                         </div>
                     )

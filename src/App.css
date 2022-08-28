@@ -9,12 +9,21 @@
 
 .todo-container li {
   margin: 0.5rem 1rem;
+  display: block;
 }
 
 button{
   margin: 0.5rem;
+  display: block;
 }
 
 .flex{
   display: flex;
+}
+
+input{
+  height: 32px;
+  width: 600px;
+  margin-right: 16px;
+  display: block;
 }
