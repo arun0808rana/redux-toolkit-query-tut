@@ -5,6 +5,7 @@ function TodoList() {
     // local states
     const [newTodo, setNewTodo] = useState({});
     const [isEditing, setIsEditing] = useState(false);
+    const [editingID, setEditingID] = useState();
 
     // hooks
     const {
@@ -18,6 +19,7 @@ function TodoList() {
     const [addTodo] = useAddTodoMutation();
     const [updateTodo] = useUpdateTodoMutation();
     const [deleteTodo] = useDeleteTodoMutation();
+
     // add todo
     const handleAddTodo = () => {
         addTodo({
@@ -45,8 +47,16 @@ function TodoList() {
         setNewTodo({});
     }
 
+    // init editing
     const handleEditing = (e) => {
-        setIsEditing(!isEditing);
+        setIsEditing(true);
+        setEditingID(e.target.getAttribute("data-id"))
+        console.log(e.target.getAttribute("data-id"), 'id')
+    }
+
+    // save edited todo
+    const handleEdited = (e) => {
+        // handleUpdateTodo()
     }
 
     // utility functions
@@ -69,10 +79,17 @@ function TodoList() {
                             <div>
                                 <li>{todo.title}</li>
                                 {/* todo: complete this */}
-                                <input type="text" onChange={handleEditing} />
+
+                                {
+                                    ((editingID === todo.id) && isEditing) ? <div>
+                                        <input type="text" onChange={(e) => setNewTodo(e.target.value)} />
+                                        <button onClick={() => setIsEditing(false)}>Cancel</button>
+                                        <button onClick={handleEdited}>Save</button>
+                                    </div> : null
+                                }
                             </div>
                             <button data-id={todo.id} onClick={handleDeletTodo}>Delete</button>
-                            <button>Edit</button>
+                            <button data-id={todo.id} onClick={handleEditing}>Edit</button>
                         </div>
                     )
                 }) : 'Loading...'
