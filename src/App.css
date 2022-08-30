@@ -1,20 +1,32 @@
 .App {
   /* text-align: center; */
-  margin: 1rem;
+  margin: 3rem auto;
+  max-width: 1140px;
+  padding: 1rem;
+  background-color: #ededed;
+  border-radius: 4px;
 }
 
 .todo-container{
   display: flex;
+  justify-content: space-between;
+  margin: 0.5rem;
 }
 
 .todo-container li {
   margin: 0.5rem 1rem;
   display: block;
+  padding: 0.5rem;
 }
 
 button{
   margin: 0.5rem;
   display: block;
+  cursor: pointer;
+  padding: 0.5rem 2rem;
+  background-color: #d3d3d3;
+  border: none;
+  border-radius: 4px;
 }
 
 .flex{
@@ -26,4 +38,14 @@ input{
   width: 600px;
   margin-right: 16px;
   display: block;
+}
+
+.todo-container:nth-child(2n){
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.newtodo-container{
+  margin: 1rem auto;
+  justify-content: center;
 }

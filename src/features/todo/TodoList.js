@@ -27,7 +27,7 @@ function TodoList() {
             "title": newTodo,
             "completed": false
         })
-        setNewTodo({})
+        // setNewTodo({})
     }
 
     // update todo
@@ -59,16 +59,25 @@ function TodoList() {
         // handleUpdateTodo()
     }
 
+    // mark completed
+    const handleCompletion = (e) => {
+        updateTodo({
+            "id": e.target.getAttribute("data-id"),
+            "title": e.target.getAttribute("data-title"),
+            "completed": true
+        })
+    }
+
     // utility functions
     function uuidv4() {
         return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
     }
-
+    // todo: complete this edtingin function
     return (
         <div>
-            <div className="flex">
+            <div className="flex newtodo-container">
                 <input type="text" onChange={(e) => setNewTodo(e.target.value)} />
                 <button onClick={handleAddTodo}>Add</button>
             </div>
@@ -76,20 +85,21 @@ function TodoList() {
                 todos.map(todo => {
                     return (
                         <div key={todo.id} className='todo-container'>
-                            <div>
-                                <li>{todo.title}</li>
-                                {/* todo: complete this */}
-
+                            <div className='todo-title'>
+                                <li style={{ textDecoration: todo.completed ? 'line-through' : '' }}>{todo.title}</li>
                                 {
-                                    ((editingID === todo.id) && isEditing) ? <div>
+                                    ((editingID == todo.id) && isEditing) ? <div>
                                         <input type="text" onChange={(e) => setNewTodo(e.target.value)} />
                                         <button onClick={() => setIsEditing(false)}>Cancel</button>
                                         <button onClick={handleEdited}>Save</button>
                                     </div> : null
                                 }
                             </div>
-                            <button data-id={todo.id} onClick={handleDeletTodo}>Delete</button>
-                            <button data-id={todo.id} onClick={handleEditing}>Edit</button>
+                            <div className="buttons flex">
+                                {todo.completed ? null : <button data-id={todo.id} data-completed={todo.completed} onClick={handleEditing}>Edit</button>}
+                                <button data-id={todo.id} onClick={handleDeletTodo}>Delete</button>
+                                <button data-id={todo.id} data-title={todo.title} onClick={handleCompletion}>Done</button>
+                            </div>
                         </div>
                     )
                 }) : 'Loading...'
